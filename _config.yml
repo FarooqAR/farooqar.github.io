@@ -1,20 +1,20 @@
 # main text of home
 name: Farooq AR
-bio: I do science on computers, with passion.
+# bio: I do science on computers, with passion.
 
 # twitter summary info
 description: Farooq AR's portfolio
 
 # if it's an external image, update below for true
 # better with square images
-external-image: false
-picture: assets/images/profile.jpg
+# external-image: false
+# picture: assets/images/profile.jpg
 
 # If you want to include your resume, set to true
 # and specify source (external or local).
-resume: true
-resume-external: true
-resume-url: https://drive.google.com/file/d/13NXfOGj1oijQ0nbt1O_iuJHMmJ6i38f2/view?usp=sharing
+# resume: false
+# resume-external: false
+# resume-url: https://drive.google.com/file/d/13NXfOGj1oijQ0nbt1O_iuJHMmJ6i38f2/view?usp=sharing
 
 url: https://farooqar.github.io
 # your url: http://USERNAME.github.io
@@ -31,7 +31,7 @@ permalink: /:title/
 # if you don't want comments in your posts, leave categories empty
 disqus:
   shortname: mydisqus # enter this from your disqus account
-  categories: [blog, project] # only show disqus for posts that have these categories
+  categories: [blog] # only show disqus for posts that have these categories
 
 # if you don't have any of social below, comment the line
 # facebook: myfacebook
@@ -51,14 +51,14 @@ github: farooqar
 # medium: medium
 # vimeo: myvimeo
 # lanyrd: mylanyrd
-email: farooqbckk@gmail.com
+# email: farooqbckk@gmail.com
 
 authors:
     johndoe:
         name: Farooq AR
-        bio: I do science on computers, with passion.
+        # bio:
         external-image: false
-        picture: assets/images/profile.jpg
+        # picture: assets/images/profile.jpg
         twitter: Farooq_AR
 
 # do you want a larger site? change the option below
@@ -71,7 +71,7 @@ width: normal
 # paginate_path: "blog/:num/"
 
 # if you don't need projects, comment the *projects* configs below
-projects: true
+# projects: true
 
 # if you don't need "about" or "blog", comment them out below
 about: true
