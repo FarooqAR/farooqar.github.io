@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "How does JS engine understands regular expressions"
+title: "How does JS engine understand regular expressions"
 category: blog
 ---
 
