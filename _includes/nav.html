@@ -1,4 +1,10 @@
 <nav class="{% if page.title == "Home" %}nav-home{% else %}nav{% endif %}">
+    {% if page.title != "Home" %}
+        <a class="logo-link{% if page.title == "Blog" %} hide{% endif %}" href="/">
+            <img class="logo" src="/assets/images/profile.jpg" width="35px" height="35px">
+            <span class="logo-text">Farooq AR</span>
+        </a>
+    {% endif %}
     <ul class="list">
         {% if page.title != "Home" %}
             <li class="item">

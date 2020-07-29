@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="root"></div>
+
+        <script>
+            const eventsMap = {
+                onSubmit: "submit",
+                onClick: "click",
+                // and so on ...
+            };
+
+            let items = [
+                { id: 0, text: "Todo 1" },
+                { id: 1, text: "Todo 2" }
+            ];
+
+            const root = document.getElementById("root");
+            const app = render(App());
+            root.appendChild(app);
+
+            function App() {
+                function onSubmit(e) {
+                    e.preventDefault();
+                    const inputEl = e.target.querySelector(".input-todo");
+                    const lastItem = items[items.length - 1];
+                    const newId = lastItem ? lastItem.id + 1: 0;
+                    items.push({ id: newId, text: inputEl.value });
+
+                    // We've access to our rendered app so we'll just use that
+                    app.removeChild(root.querySelector(".todo-list"));
+                    app.appendChild(render(TodoList({ items, onRemoveTodo })));
+
+                    // Clear the input
+                    inputEl.value = "";
+                }
+                function onRemoveTodo(id) {
+                    const index = items.findIndex(item => item.id == id);
+                    items.splice(index, 1);
+
+                    app.removeChild(root.querySelector(".todo-list"));
+                    app.appendChild(render(TodoList({ items, onRemoveTodo })));
+                }
+                return {
+                    name: "div",
+                    className: "app",
+                    id: "app",
+                    children: [
+                        Header(),
+                        TodoForm({ onSubmit }),
+                        TodoList({ items, onRemoveTodo })
+                    ]
+                }
+            }
+
+            function Header(props){
+                return {
+                    name: "h1",
+                    style: {
+                        "text-align": "center"
+                    },
+                    children: ["Todo List"]
+                };
+            }
+
+            function TodoForm(props) {
+                const inputEl = {
+                    name: "input",
+                    type: "text",
+                    placeholder: "Add a new todo",
+                    className: "input-todo",
+                    style: {
+                        padding: "6px 12px",
+                        display: "block",
+                        width: "100%",
+                        "box-sizing": "border-box"
+                    }
+                };
+                return {
+                    name: "form",
+                    style: {
+                        width: "50%",
+                        margin: "auto"
+                    },
+                    onSubmit: props.onSubmit,
+                    children: [inputEl]
+                };
+            }
+
+            function TodoList(props) {
+                const { items, onRemoveTodo } = props;
+                return {
+                    name: "ul",
+                    className: "todo-list",
+                    children: items.map(item => TodoItem({ ...item, onRemoveTodo }))
+                }
+            }
+
+            function TodoItem(props) {
+                const { id, text, onRemoveTodo } = props;
+                const removeBtn = {
+                    name: "button",
+                    onClick: () => onRemoveTodo(id),
+                    children: ["Remove"]
+                };
+
+                return {
+                    name: "li",
+                    children: [text, removeBtn]
+                }
+            }
+
+            function render(component) {
+                // We collect all other attributes in `otherAttributes`
+                const {name, style, children, ...otherAttributes} = component;
+
+                const el = document.createElement(name);
+
+                // Add all styles to the element
+                if (typeof style === "object") {
+                    for (const styleName in style) {
+                        el.style[styleName] = style[styleName];
+                    }
+                }
+
+                // Add all attributes to the element
+                // An attribute can be a simple string or an event handler
+                // If it is an event handler, it needs to be DOM supported so we'll check it
+                // against our list of possible events
+                for(let key in otherAttributes) {
+                    const value = otherAttributes[key];
+                    if (typeof value === "string") {
+                        // class is a reserved keyword so we'll instead use "className" in our
+                        // components and convert it back to "class" here before setting it.
+                        if (key === "className") {
+                            key = "class";
+                        }
+                        el.setAttribute(key, value);
+                        continue;
+                    }
+                    if (typeof value === "function" && eventsMap[key]) {
+                        el.addEventListener(eventsMap[key], value);
+                    }
+                }
+
+                // If there are children, iterate through them and append them in `el`
+                if (Array.isArray(children)) {
+                    for(let i = 0, l = children.length; i < l; i++) {
+                        const child = children[i];
+    
+                        // it's text, create a text node
+                        if (typeof child === "string") {
+                            const textNode = document.createTextNode(child);
+                            el.appendChild(textNode);
+                            continue;
+                        }
+    
+                        // It's a component; we need to call render again
+                        if (typeof child === "object") {
+                            el.appendChild(render(child));
+                        }
+                    }
+                }
+
+                return el;
+            }
+
+
+        </script>
+    </body>
+</html>

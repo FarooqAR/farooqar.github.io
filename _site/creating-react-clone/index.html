@@ -14,20 +14,22 @@
     <meta property="og:type" content="profile">
 
     <!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Blog | Farooq AR</title>
+<title>Creating a React-like library from scratch | Farooq AR</title>
 <meta name="generator" content="Jekyll v3.8.7" />
-<meta property="og:title" content="Blog" />
+<meta property="og:title" content="Creating a React-like library from scratch" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Farooq AR’s portfolio" />
-<meta property="og:description" content="Farooq AR’s portfolio" />
-<link rel="canonical" href="http://localhost:4000/" />
-<meta property="og:url" content="http://localhost:4000/" />
+<meta name="description" content="I have been developing React apps for quite a while and not a day passes by when I wonder how the React library was made. Today, I will turn this curiosity into an adventure." />
+<meta property="og:description" content="I have been developing React apps for quite a while and not a day passes by when I wonder how the React library was made. Today, I will turn this curiosity into an adventure." />
+<link rel="canonical" href="http://localhost:4000/creating-react-clone/" />
+<meta property="og:url" content="http://localhost:4000/creating-react-clone/" />
 <meta property="og:site_name" content="Farooq AR" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-07-27T00:00:00+05:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Blog" />
+<meta property="twitter:title" content="Creating a React-like library from scratch" />
 <meta name="twitter:site" content="@" />
 <script type="application/ld+json">
-{"@type":"WebSite","url":"http://localhost:4000/","headline":"Blog","name":"Farooq AR","description":"Farooq AR’s portfolio","@context":"https://schema.org"}</script>
+{"@type":"BlogPosting","url":"http://localhost:4000/creating-react-clone/","headline":"Creating a React-like library from scratch","datePublished":"2020-07-27T00:00:00+05:00","dateModified":"2020-07-27T00:00:00+05:00","description":"I have been developing React apps for quite a while and not a day passes by when I wonder how the React library was made. Today, I will turn this curiosity into an adventure.","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/creating-react-clone/"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     
@@ -53,7 +55,7 @@
 <meta name="msapplication-square310x310logo" content="mstile-310x310.png" />
 
 
-    <link rel="canonical" href="http://localhost:4000/">
+    <link rel="canonical" href="http://localhost:4000/creating-react-clone/">
     <link rel="alternate" type="application/rss+xml" title="" href="http://localhost:4000/feed.xml" />
 
     <style>
@@ -1417,75 +1419,17 @@ pre {
     <div class="wrapper-normal">
         
             
-                <div class="page blog">
+                <div class="page creating a react-like library from scratch">
             
         
 
             
 
-
-    <header class="header-home animated">
-        
-            <a class="link" href="http://localhost:4000/about">
-                <img class="selfie" alt="Farooq AR" src="http://localhost:4000/assets/images/profile.jpg" />
-            </a>
-        
-
-        <h1 class="title">Farooq AR</h1>
-        <h2 class="description"></h2>
-
-        <div class="social-links">
-    
-
-    
-        <a class="link" data-title="twitter.com/Farooq_AR" href="http://twitter.com/Farooq_AR" target="_blank">
-            <svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg>
-        </a>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <a class="link" data-title="github.com/farooqar" href="https://github.com/farooqar" target="_blank">
-            <svg class="icon icon-github"><use xlink:href="#icon-github"></use></svg>
-        </a>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</div>
-
-    </header>
 
 
 <nav class="nav">
     
-        <a class="logo-link hide" href="/">
+        <a class="logo-link" href="/">
             <img class="logo" src="/assets/images/profile.jpg" width="35px" height="35px">
             <span class="logo-text">Farooq AR</span>
         </a>
@@ -1498,6 +1442,10 @@ pre {
         
 
         
+            
+                <li class="item">
+                    <a class="link" href="http://localhost:4000/blog">Blog</a>
+                </li>
             
         
 
@@ -1517,23 +1465,433 @@ pre {
 
 
 
-<section class="list">
-	
-		
-			
-				
-					<div class="item ">
-    <a class="url" href="http://localhost:4000/creating-react-clone/">
-        <aside class="date"><time datetime="27-07-2020">Jul 27 2020</time></aside>
-        <h3 class="title">Creating a React-like library from scratch</h3>
-    </a>
+
+
+<h1 class="title">Creating a React-like library from scratch</h1>
+
+<span class="date">
+    <time datetime="27-07-2020">Monday. July 27, 2020</time>
+     - <span class="reading-time" title="Estimated read time">
+    
+
+    
+        16 mins
+    
+</span>
+
+</span>
+
+
+    <div class="post-tags">
+        
+    </div>
+
+
+<p>I have been developing React apps for quite a while and not a day passes by when I wonder
+how the React library was made. Today, I will turn this curiosity into an adventure.</p>
+
+<p>The main goal of React is to create user interfaces, and that’s what we will try to achieve. We won’t be doing all the fancy stuff that React does, and for a good reason. We will stick
+to our goal without getting into optimizations and the nitty gritty details which will probably overwhelm anyone trying to grasp the basic stuff, including me!</p>
+
+<p>Additionally, we won’t <em>just</em> develop an abstract React library. We will develop the famous
+todo list and you will see the React-like library getting carved out of it! Oof, that sounds fun!</p>
+
+<p>So let’s get to it!</p>
+
+<h3 id="rendering-an-element">Rendering an element</h3>
+
+<p>How do you display an html element through JavaScript? We need the integral part of
+the web for that: The JavaScript DOM API. Using it, let’s display an <code class="highlighter-rouge">h1</code> element in the following page:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"root"</span><span class="nt">&gt;&lt;/div&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>If you’ve been developing React apps, this markup looks similar. <code class="highlighter-rouge">div#root</code> is where React renders
+your whole app. We will do the same. The JavaScript code to render <code class="highlighter-rouge">h1</code> looks like this:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">root</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">root</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">h1</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="dl">"</span><span class="s2">h1</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">hTxt</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="dl">"</span><span class="s2">Todo List</span><span class="dl">"</span><span class="p">);</span>
+<span class="nx">h1</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">hTxt</span><span class="p">);</span>
+<span class="nx">root</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">h1</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Upon running this code, you will see the <code class="highlighter-rouge">h1</code> has rendered:</p>
+
+<iframe src="/assets/demos/creating-react-clone/v1.html" width="500px"></iframe>
+
+<p>As you see, we needed 5 lines of code to display/render a simple heading. We need to do the same
+for other elements of a todo app i.e. the input and the list. We could do it but this is really tedious and as you may imagine, the code gets harder to maintain as your site grows. And let’s remember, our react-like library should not just work for this todo app! We will abstract out these
+details into a separate function called <code class="highlighter-rouge">render</code>.</p>
+
+<h3 id="the-render-function">The <code class="highlighter-rouge">render</code> function</h3>
+
+<p>What should it look like? It could take in a representation of our element (let’s call it a component) and output a DOM structure which could then be rendered in <code class="highlighter-rouge">div#root</code>:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">render</span><span class="p">(</span><span class="nx">component</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// converts `component` into DOM node</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">componentDOM</span> <span class="o">=</span> <span class="nx">render</span><span class="p">(...);</span> <span class="c1">// we'll see what goes in</span>
+<span class="nx">root</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">componentDOM</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>The <code class="highlighter-rouge">component</code> will be a simple object telling us what to render. We can create functions which will return these “components”. This lets us pass any additional info (think of <code class="highlighter-rouge">props</code>!) and return the component based on that info. In case of the header:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">Header</span><span class="p">(</span><span class="nx">props</span><span class="p">){</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">h1</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">children</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">Todo List</span><span class="dl">"</span><span class="p">]</span>
+    <span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Is it starting to look familiar? <code class="highlighter-rouge">name</code> is element’s tag name and <code class="highlighter-rouge">children</code> is an array of things you want to put inside that element, which could be a simple string (for example “Todo List”) or another component with a similar structure.</p>
+
+<p>Our <code class="highlighter-rouge">render</code> function will create DOM node(s) from this kind of component so let’s implement the basic steps:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">render</span><span class="p">(</span><span class="nx">component</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="p">{</span><span class="nx">name</span><span class="p">,</span> <span class="nx">children</span><span class="p">}</span> <span class="o">=</span> <span class="nx">component</span><span class="p">;</span>
+
+    <span class="c1">// Create HTML element</span>
+    <span class="kd">const</span> <span class="nx">el</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>
+
+    <span class="c1">// Iterate through children and append them in `el`</span>
+    <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">l</span> <span class="o">=</span> <span class="nx">children</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">l</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="nx">child</span> <span class="o">=</span> <span class="nx">children</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+
+        <span class="c1">// Create text node</span>
+        <span class="kd">const</span> <span class="nx">textNode</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="nx">child</span><span class="p">);</span>
+
+        <span class="c1">// Append it to `el`</span>
+        <span class="nx">el</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">textNode</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nx">el</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>You probably figured out what goes in the render function. This shall produce the same result as in the last example:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">componentDOM</span> <span class="o">=</span> <span class="nx">render</span><span class="p">(</span><span class="nx">Header</span><span class="p">());</span>
+<span class="nx">root</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">componentDOM</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>We’re far from done here. There are some basic limitations of our render function right now:</p>
+
+<ol>
+  <li>It does not take into account other HTML attributes like <code class="highlighter-rouge">id</code>, <code class="highlighter-rouge">class</code>, <code class="highlighter-rouge">style</code> etc</li>
+  <li>It does not add event handlers onto an element</li>
+  <li>It cannot render complex components beside strings</li>
+</ol>
+
+<p>There are more but these are what come into one’s mind right off the bat. We will fix them gradually as we progress.</p>
+
+<h3 id="adding-the-input-element">Adding the input element</h3>
+
+<p>We should be able to add new todos in our yet-to-develop todo list. So I will create an <code class="highlighter-rouge">input</code> element. We will create this inside a <code class="highlighter-rouge">form</code> element since we want to add new todos on form submission. Our form component is going to be a little more complex since this time, we not only have event handlers but also child components (and not just mere strings!). Here it is:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">TodoForm</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">inputEl</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">input</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">text</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">placeholder</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Add a new todo</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">className</span><span class="p">:</span> <span class="dl">"</span><span class="s2">input-todo</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">style</span><span class="p">:</span> <span class="p">{</span>
+            <span class="na">padding</span><span class="p">:</span> <span class="dl">"</span><span class="s2">6px 12px</span><span class="dl">"</span><span class="p">,</span>
+            <span class="na">display</span><span class="p">:</span> <span class="dl">"</span><span class="s2">block</span><span class="dl">"</span><span class="p">,</span>
+            <span class="na">width</span><span class="p">:</span> <span class="dl">"</span><span class="s2">100%</span><span class="dl">"</span><span class="p">,</span>
+            <span class="dl">"</span><span class="s2">box-sizing</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">border-box</span><span class="dl">"</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">form</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">style</span><span class="p">:</span> <span class="p">{</span>
+            <span class="na">width</span><span class="p">:</span> <span class="dl">"</span><span class="s2">50%</span><span class="dl">"</span><span class="p">,</span>
+            <span class="na">margin</span><span class="p">:</span> <span class="dl">"</span><span class="s2">auto</span><span class="dl">"</span>
+        <span class="p">},</span>
+        <span class="na">onSubmit</span><span class="p">:</span> <span class="nx">props</span><span class="p">.</span><span class="nx">onSubmit</span><span class="p">,</span>
+        <span class="na">children</span><span class="p">:</span> <span class="p">[</span><span class="nx">inputEl</span><span class="p">]</span>
+    <span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Notice we have things now on which the <code class="highlighter-rouge">render</code> function won’t work. Let’s refactor it so it supports our <code class="highlighter-rouge">TodoForm</code> component. There will be so many attributes like <code class="highlighter-rouge">placeholder</code> and <code class="highlighter-rouge">onSubmit</code> so it has to be as generic as possible.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">render</span><span class="p">(</span><span class="nx">component</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// We collect all other attributes in `otherAttributes`</span>
+    <span class="kd">const</span> <span class="p">{</span><span class="nx">name</span><span class="p">,</span> <span class="nx">style</span><span class="p">,</span> <span class="nx">children</span><span class="p">,</span> <span class="p">...</span><span class="nx">otherAttributes</span><span class="p">}</span> <span class="o">=</span> <span class="nx">component</span><span class="p">;</span>
+
+    <span class="kd">const</span> <span class="nx">el</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>
+
+    <span class="c1">// Add all styles to the element</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">style</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">object</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">const</span> <span class="nx">styleName</span> <span class="k">in</span> <span class="nx">style</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">el</span><span class="p">.</span><span class="nx">style</span><span class="p">[</span><span class="nx">styleName</span><span class="p">]</span> <span class="o">=</span> <span class="nx">style</span><span class="p">[</span><span class="nx">styleName</span><span class="p">];</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Add all attributes to the element</span>
+    <span class="c1">// An attribute can be a simple string or an event handler</span>
+    <span class="c1">// If it is an event handler, it needs to be DOM supported so we'll check it</span>
+    <span class="c1">// against our list of possible events</span>
+    <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">otherAttributes</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">otherAttributes</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
+        <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">value</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">string</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// class is a reserved keyword so we'll instead use "className" in our</span>
+            <span class="c1">// components and convert it back to "class" here before setting it.</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">key</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">className</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">key</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">class</span><span class="dl">"</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="nx">el</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">);</span>
+            <span class="k">continue</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">value</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">function</span><span class="dl">"</span> <span class="o">&amp;&amp;</span> <span class="nx">eventsMap</span><span class="p">[</span><span class="nx">key</span><span class="p">])</span> <span class="p">{</span>
+            <span class="nx">el</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">eventsMap</span><span class="p">[</span><span class="nx">key</span><span class="p">],</span> <span class="nx">value</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="c1">// If there are children, iterate through them and append them in `el`</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">children</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">l</span> <span class="o">=</span> <span class="nx">children</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">l</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">const</span> <span class="nx">child</span> <span class="o">=</span> <span class="nx">children</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+
+            <span class="c1">// it's text, create a text node</span>
+            <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">child</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">string</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kd">const</span> <span class="nx">textNode</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="nx">child</span><span class="p">);</span>
+                <span class="nx">el</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">textNode</span><span class="p">);</span>
+                <span class="k">continue</span><span class="p">;</span>
+            <span class="p">}</span>
+    
+            <span class="c1">// It's a component; we need to call render again</span>
+            <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">child</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">object</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">el</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">render</span><span class="p">(</span><span class="nx">child</span><span class="p">));</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nx">el</span><span class="p">;</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>We have taken care of the limitations we previously discussed. The event handler names in components are prefixed with “on” (<code class="highlighter-rouge">onSubmit</code> for example), but when using <code class="highlighter-rouge">addEventListener</code>, that’s an invalid event name. So we’ll map these <code class="highlighter-rouge">onEvent</code> keys to just <code class="highlighter-rouge">event</code>. The key map will look something like this:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">eventsMap</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">onSubmit</span><span class="p">:</span> <span class="dl">"</span><span class="s2">submit</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">onClick</span><span class="p">:</span> <span class="dl">"</span><span class="s2">click</span><span class="dl">"</span><span class="p">,</span>
+    <span class="c1">// and so on ...</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>If you haven’t noticed, the <code class="highlighter-rouge">render</code> function is now recursive! If we’ve a component as a child of another component, we know it is going to have a similar structure to its parent component, so we can just call render on that again.</p>
+
+<p>We now need to render these two components: <code class="highlighter-rouge">Header</code> and <code class="highlighter-rouge">TodoForm</code>. We can introduce another component <code class="highlighter-rouge">App</code> which will contain both of these components and will be rendered at <code class="highlighter-rouge">div#root</code>.</p>
+
+<h3 id="the-app-component">The <code class="highlighter-rouge">App</code> component</h3>
+
+<p>The app component is fairly simple, for now. It contains <code class="highlighter-rouge">Header</code> and <code class="highlighter-rouge">TodoForm</code> as its children. Additionally, it passes the <code class="highlighter-rouge">onSubmit</code> handler down to our form component. Let’s code that:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">function</span> <span class="nx">onSubmit</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+        <span class="kd">const</span> <span class="nx">inputEl</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="dl">"</span><span class="s2">.input-todo</span><span class="dl">"</span><span class="p">);</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">inputEl</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">div</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">className</span><span class="p">:</span> <span class="dl">"</span><span class="s2">app</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">id</span><span class="p">:</span> <span class="dl">"</span><span class="s2">app</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">children</span><span class="p">:</span> <span class="p">[</span>
+            <span class="nx">Header</span><span class="p">(),</span>
+            <span class="nx">TodoForm</span><span class="p">({</span> <span class="nx">onSubmit</span> <span class="p">})</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Before implementing the <code class="highlighter-rouge">TodoList</code> component, let’s run this code and be confident of ourselves. Try typing something in the form and submitting it (just press Enter), you’ll see the input getting logged in the console.</p>
+
+<iframe src="/assets/demos/creating-react-clone/v2.html" width="500px"></iframe>
+<p><em>We added some styles to h1, form and input so everything looks nice and centered</em></p>
+
+<p>The next step is developing the <code class="highlighter-rouge">TodoList</code> component.</p>
+
+<h3 id="the-todolist-component">The <code class="highlighter-rouge">TodoList</code> component</h3>
+
+<p>This is going to be a <code class="highlighter-rouge">ul</code> element with todo items in each <code class="highlighter-rouge">li</code>. The todo items will look like this:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">items</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="na">id</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="na">text</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Todo 1</span><span class="dl">"</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="na">text</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Todo 2</span><span class="dl">"</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<p>We need to be able to delete these todo items as well, which is one reason we’ve added <code class="highlighter-rouge">id</code> in each item. We’ll pass these items as a prop to <code class="highlighter-rouge">TodoList</code> which will be the last child of the <code class="highlighter-rouge">App</code> component:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+    <span class="kd">function</span> <span class="nx">onRemoveTodo</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// ...</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="c1">// ...</span>
+        <span class="na">children</span><span class="p">:</span> <span class="p">[</span>
+            <span class="c1">// ...</span>
+            <span class="nx">TodoList</span><span class="p">({</span> <span class="nx">items</span><span class="p">,</span> <span class="nx">onRemoveTodo</span> <span class="p">})</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Let’s implement the list component:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">TodoList</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="p">{</span> <span class="nx">items</span><span class="p">,</span> <span class="nx">onRemoveTodo</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">props</span><span class="p">;</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">ul</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">className</span><span class="p">:</span> <span class="dl">"</span><span class="s2">todo-list</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">children</span><span class="p">:</span> <span class="nx">items</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">item</span> <span class="o">=&gt;</span> <span class="nx">TodoItem</span><span class="p">({</span> <span class="p">...</span><span class="nx">item</span><span class="p">,</span> <span class="nx">onRemoveTodo</span> <span class="p">}))</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>We’ve mapped the items to a list of another components (<code class="highlighter-rouge">TodoItem</code>s) so let’s implement that as well:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">TodoItem</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="p">{</span> <span class="nx">id</span><span class="p">,</span> <span class="nx">text</span><span class="p">,</span> <span class="nx">onRemoveTodo</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">props</span><span class="p">;</span>
+    <span class="kd">const</span> <span class="nx">removeBtn</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">button</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">onClick</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">onRemoveTodo</span><span class="p">(</span><span class="nx">id</span><span class="p">),</span>
+        <span class="na">children</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">Remove</span><span class="dl">"</span><span class="p">]</span>
+    <span class="p">};</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">li</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">children</span><span class="p">:</span> <span class="p">[</span><span class="nx">text</span><span class="p">,</span> <span class="nx">removeBtn</span><span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Before implementing <code class="highlighter-rouge">onSubmit</code> and <code class="highlighter-rouge">onRemoveTodo</code>, let’s run this code:</p>
+<iframe src="/assets/demos/creating-react-clone/v3.html" width="500px" height="200px"></iframe>
+
+<h3 id="rendering-on-updates">Rendering on updates</h3>
+
+<p>What we have done so far is static rendering, that is, what we see being displayed on browser will remain static and not change. That’s a big limitation. Our app should be able to respond (or re-render) on updates, whether they are a result of changing props or some state. In our case, we donot have anything similar to React state. We do have props, but they won’t result in re-rendering upon a change.</p>
+
+<p>We won’t introduce state as of yet, neither we will create a generic way to re-render on props change. Instead, just to see our final product, we will re-render the <code class="highlighter-rouge">TodoList</code> component in our implementatations of <code class="highlighter-rouge">onSubmit</code> and <code class="highlighter-rouge">onRemoveTodo</code> event handler. So let’s do that:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">function</span> <span class="nx">onSubmit</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+        <span class="kd">const</span> <span class="nx">inputEl</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="dl">"</span><span class="s2">.input-todo</span><span class="dl">"</span><span class="p">);</span>
+        <span class="kd">const</span> <span class="nx">lastItem</span> <span class="o">=</span> <span class="nx">items</span><span class="p">[</span><span class="nx">items</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
+        <span class="kd">const</span> <span class="nx">newId</span> <span class="o">=</span> <span class="nx">lastItem</span> <span class="p">?</span> <span class="nx">lastItem</span><span class="p">.</span><span class="nx">id</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="nx">items</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span> <span class="na">id</span><span class="p">:</span> <span class="nx">newId</span><span class="p">,</span> <span class="na">text</span><span class="p">:</span> <span class="nx">inputEl</span><span class="p">.</span><span class="nx">value</span> <span class="p">});</span>
+
+        <span class="c1">// We've access to our rendered app so we'll just use that</span>
+        <span class="nx">app</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="dl">"</span><span class="s2">.todo-list</span><span class="dl">"</span><span class="p">));</span>
+        <span class="nx">app</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">render</span><span class="p">(</span><span class="nx">TodoList</span><span class="p">({</span> <span class="nx">items</span><span class="p">,</span> <span class="nx">onRemoveTodo</span> <span class="p">})));</span>
+
+        <span class="c1">// Clear the input</span>
+        <span class="nx">inputEl</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="dl">""</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="kd">function</span> <span class="nx">onRemoveTodo</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="nx">index</span> <span class="o">=</span> <span class="nx">items</span><span class="p">.</span><span class="nx">findIndex</span><span class="p">(</span><span class="nx">item</span> <span class="o">=&gt;</span> <span class="nx">item</span><span class="p">.</span><span class="nx">id</span> <span class="o">==</span> <span class="nx">id</span><span class="p">);</span>
+        <span class="nx">items</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">index</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+
+        <span class="nx">app</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="dl">"</span><span class="s2">.todo-list</span><span class="dl">"</span><span class="p">));</span>
+        <span class="nx">app</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">render</span><span class="p">(</span><span class="nx">TodoList</span><span class="p">({</span> <span class="nx">items</span><span class="p">,</span> <span class="nx">onRemoveTodo</span> <span class="p">})));</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="c1">// ...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>In both of our handlers, we are simply removing <code class="highlighter-rouge">.todo-list</code> and rendering the whole <code class="highlighter-rouge">TodoList</code> component again! Not so good! Firstly, this is too tightly coupled with the <code class="highlighter-rouge">App</code> component so we would have to do something similar for every component if it’s not just a Todo app as simple as ours. That’s a mess. Secondly, we are rendering all the items again which is not efficient at all.</p>
+
+<p>Let’s ignore those problems and enjoy the view for now:</p>
+
+<iframe src="/assets/demos/creating-react-clone/v4.html" width="500px" height="200px"></iframe>
+
+<p>It works! You can now add and remove todo items! We’ve come a long way but there’s still a lot to do. We’ll do the remaining work in part 2 of this article.</p>
+
+<p>I hope you liked it. If you did and would like to see Part 2 as well, follow me on <a href="https://twitter.com/farooqar">Twitter</a> where I tweet about my upcoming posts as well as other good stuff!</p>
+
+
+
+    <div class="blog-navigation">
+        
+            <a class="prev"></a>
+        
+        
+    </div>
+
+
+
+    <div class="related">
+    
+    
+        
+        
+    
+    
 </div>
 
-				
-			
-		
-	
+
+
+
+    <section class="author">
+    <div class="toleft">
+        <img class="selfie" src="http://localhost:4000/" alt="">
+    </div>
+
+    <div class="toright">
+        <h4 class="name"></h4>
+        <p class="bio"></p>
+
+        <div class="share">
+            <!-- Note: Only use three share links if your site width is set to large -->
+            <!-- If site width is set to normal, you may choose any two share links -->
+            <a class="twitter" href="https://twitter.com/intent/tweet?text=http://localhost:4000/creating-react-clone/ - Creating a React-like library from scratch by @">
+                <svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg><span class="icon-twitter">Tweet</span>
+            </a>
+
+            <a class="facebook" href="javascript:void(0)" onclick="window.open('https://facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href), 'facebook-share-dialog', 'width=626,height=436'); return false;">
+                <svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg><span class="icon-facebook-rect">Share</span>
+            </a>
+
+            <!-- <a class="google-plus" href="https://plus.google.com/share?url=http://localhost:4000/creating-react-clone/" target="_blank">
+                <svg class="icon icon-google-plus"><use xlink:href="#icon-google-plus"></use></svg><span class="icon-google-plus">Share</span>
+            </a> -->
+
+            <!-- <a class="linkedin" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http://localhost:4000/creating-react-clone/&amp;title=Creating a React-like library from scratch&amp;summary=&amp;source=http://localhost:4000" target="_blank">
+                <svg class="icon icon-linkedin"><use xlink:href="#icon-linkedin"></use></svg><span class="icon-linkedin">Share</span>
+            </a> -->
+
+            <!-- <a class="reddit" href="https://reddit.com/submit?url=http://localhost:4000/creating-react-clone/&amp;title=Creating a React-like library from scratch" target="_blank">
+                <svg class="icon icon-reddit"><use xlink:href="#icon-reddit"></use></svg><span class="icon-reddit">Share</span>
+            </a> -->
+        </div>
+    </div>
 </section>
+
+
+
+
 
 
 <footer class="footer-main">
