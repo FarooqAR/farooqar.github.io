@@ -359,4 +359,4 @@ Let's ignore those problems and enjoy the view for now:
 
 It works! You can now add and remove todo items! We've come a long way but there's still a lot to do. We'll do the remaining work in part 2 of this article.
 
-I hope you liked it. If you did and would like to see Part 2 as well, follow me on <a href="https://twitter.com/farooqar" target="_blank">Twitter</a> where I tweet about my upcoming posts as well as other good stuff!
+I hope you liked it. If you did and would like to see Part 2 as well, follow me on <a href="https://twitter.com/farooq_ar" target="_blank">Twitter</a> where I tweet about my upcoming posts as well as other good stuff!
