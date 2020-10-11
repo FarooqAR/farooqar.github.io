@@ -8,6 +8,6 @@ I created this "thing explainer" as part of my undergrad course called Science T
 
 *That cone thing puts me off every time I look at it. It doesn't look ... cony.*
 
-<img style="max-width:195%;margin-left:-40%;" src="../assets/images/speaker_working.PNG">
+<img style="max-width:195%;margin-left:-40%;" src="../assets/images/speaker_working.png">
 
 *If this doesn't look like a speaker to you on first look, I didn't do a good job. If this resembles some dope tech for you, I am still proud.*
