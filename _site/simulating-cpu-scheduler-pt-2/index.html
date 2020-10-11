@@ -25,20 +25,22 @@
     <meta property="og:type" content="profile">
 
     <!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Farooq AR | Farooq AR’s portfolio</title>
+<title>CPU Scheduling - Part 2 - Setting Up | Farooq AR</title>
 <meta name="generator" content="Jekyll v3.8.7" />
-<meta property="og:title" content="Farooq AR" />
+<meta property="og:title" content="CPU Scheduling - Part 2 - Setting Up" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Farooq AR’s portfolio" />
-<meta property="og:description" content="Farooq AR’s portfolio" />
-<link rel="canonical" href="https://farooqar.github.io/404.html" />
-<meta property="og:url" content="https://farooqar.github.io/404.html" />
+<meta name="description" content="Let’s talk about what our final product would look like. We’ll write a C program which takes a type of policy and a list of processes as inputs, and outputs the state of our CPU at any given time. If you’ve read the previous article, you already know the four types of scheduling policies we’re going to implement:" />
+<meta property="og:description" content="Let’s talk about what our final product would look like. We’ll write a C program which takes a type of policy and a list of processes as inputs, and outputs the state of our CPU at any given time. If you’ve read the previous article, you already know the four types of scheduling policies we’re going to implement:" />
+<link rel="canonical" href="https://farooqar.github.io/simulating-cpu-scheduler-pt-2/" />
+<meta property="og:url" content="https://farooqar.github.io/simulating-cpu-scheduler-pt-2/" />
 <meta property="og:site_name" content="Farooq AR" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-09-25T00:00:00+05:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Farooq AR" />
+<meta property="twitter:title" content="CPU Scheduling - Part 2 - Setting Up" />
 <meta name="twitter:site" content="@" />
 <script type="application/ld+json">
-{"@type":"WebPage","url":"https://farooqar.github.io/404.html","headline":"Farooq AR","description":"Farooq AR’s portfolio","@context":"https://schema.org"}</script>
+{"@type":"BlogPosting","url":"https://farooqar.github.io/simulating-cpu-scheduler-pt-2/","headline":"CPU Scheduling - Part 2 - Setting Up","datePublished":"2020-09-25T00:00:00+05:00","dateModified":"2020-09-25T00:00:00+05:00","description":"Let’s talk about what our final product would look like. We’ll write a C program which takes a type of policy and a list of processes as inputs, and outputs the state of our CPU at any given time. If you’ve read the previous article, you already know the four types of scheduling policies we’re going to implement:","mainEntityOfPage":{"@type":"WebPage","@id":"https://farooqar.github.io/simulating-cpu-scheduler-pt-2/"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     
@@ -64,7 +66,7 @@
 <meta name="msapplication-square310x310logo" content="mstile-310x310.png" />
 
 
-    <link rel="canonical" href="https://farooqar.github.io/404.html">
+    <link rel="canonical" href="https://farooqar.github.io/simulating-cpu-scheduler-pt-2/">
     <link rel="alternate" type="application/rss+xml" title="" href="https://farooqar.github.io/feed.xml" />
 
     <style>
@@ -1431,19 +1433,378 @@ pre {
     <div class="wrapper-normal">
         
             
-                <div class="page ">
+                <div class="page cpu scheduling - part 2 - setting up">
             
         
 
-            <section class="lost-container">
-  <h1>Uh oh!</h1>
-  <div class="link">
-    <img class="selfie" alt="Farooq AR" src="https://farooqar.github.io/assets/images/error.gif" />
-  </div>
-  <br />
-  <br />
-  <a href="/">Take me home!</a>
+            
+
+
+
+<nav class="nav">
+    
+        <a class="logo-link" href="/">
+            <img class="logo" src="/assets/images/profile.jpg" width="35px" height="35px">
+            <span class="logo-text">Farooq AR</span>
+        </a>
+    
+    <ul class="list">
+        
+            <li class="item">
+                <a class="link" href="https://farooqar.github.io/">Home</a>
+            </li>
+        
+
+        
+            
+                <li class="item">
+                    <a class="link" href="https://farooqar.github.io/blog">Blog</a>
+                </li>
+            
+        
+
+        
+
+        
+            
+                <li class="item">
+                    <a class="link" href="https://farooqar.github.io/about">About</a>
+                </li>
+            
+        
+
+        
+    </ul>
+</nav>
+
+
+
+
+
+<h1 class="title">CPU Scheduling - Part 2 - Setting Up</h1>
+
+<span class="date">
+    <time datetime="25-09-2020">Friday. September 25, 2020</time>
+     - <span class="reading-time" title="Estimated read time">
+    
+
+    
+        9 mins
+    
+</span>
+
+</span>
+
+
+    <div class="post-tags">
+        
+    </div>
+
+
+<p>Let’s talk about what our final product would look like. We’ll write a C program which takes a type of policy and a list of processes as inputs, and outputs the state of our CPU at any given time. If you’ve read the <a href="../simulating-cpu-scheduler">previous article</a>, you already know the four types of scheduling policies we’re going to implement:</p>
+
+<ul>
+  <li>FIFO (First In First Out)</li>
+  <li>SJF (Shortest Job First)</li>
+  <li>STCF (Shortest Time to Completion First) and</li>
+  <li>RR (Round Robin)</li>
+</ul>
+
+<p>We’re storing the list of processes in a file called <code class="highlighter-rouge">processes.dat</code>. It’s a simple text file with a specific format which I am going to discuss next. Here’s what an example file looks like:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># pname:pid:duration:arrivaltime
+# process 1
+</span><span class="n">P1</span><span class="p">:</span><span class="mi">13</span><span class="p">:</span><span class="mi">2</span><span class="p">:</span><span class="mi">1</span>
+<span class="c1"># process 2
+</span><span class="n">P2</span><span class="p">:</span><span class="mi">15</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span>
+<span class="c1"># process 3
+</span><span class="n">P3</span><span class="p">:</span><span class="mi">16</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span>
+</code></pre></div></div>
+
+<p>Any line starting with the pound (#) sign is a comment, so our code must ignore it. The rest of the lines correspond to the processes. Each line represents a single process. Let’s take a close look at the first process:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>P1:13:2:1
+</code></pre></div></div>
+
+<p>There are four things, each separated by a colon (:), to describe this process:</p>
+
+<ol>
+  <li>Name (<code class="highlighter-rouge">P1</code> in this case). A combination of alphabets and integers.</li>
+  <li>Id or pid (<code class="highlighter-rouge">13</code> here). Not really useful in our program, but I’ve kept it for fun.</li>
+  <li>Duration (<code class="highlighter-rouge">2</code> for process P1). It’s the number of units of time the process takes to finish.</li>
+  <li>Arrival time (<code class="highlighter-rouge">1</code>). When did the process come? Again, a number of units of time.</li>
+</ol>
+
+<p><em>All the numeric quantities are non-negative integers</em></p>
+
+<p>How do we run this program? After the compilation, we’ll be able to run it like this:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./main processes.dat FIFO
+</code></pre></div></div>
+
+<p>Where <code class="highlighter-rouge">./main</code> is our program and the next two arguments are the processes file and the policy type (respectively).</p>
+
+<h2 id="the-output">The Output</h2>
+
+<p>The output of our program will be the state of CPU from start to the end. Each line in the output gives us the state of the CPU at a particular time. Take the following output for example:</p>
+
+<div id="output-format"></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1:P1:empty:
+2:P1:P2(1),P3(1),:
+3:P2:P3(1),:
+4:P3:empty:
+</code></pre></div></div>
+
+<p>Don’t freak out! We’ll go through it line by line. The first line is:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1:P1:empty:
+</code></pre></div></div>
+
+<p>This tells us that at the start (1st unit of time) of our CPU execution, a process P1 has arrived and needs to be run. Since there is no other process running, the CPU runs P1. Also, P1 was the only process which came that early, so the waiting line is empty. We call this waiting line a ready state or a ready queue. In summary, each output line has the following format:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Time:Currently Running Process:Ready State:
+</code></pre></div></div>
+
+<p>Next, we have:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2:P1:P2(1),P3(1),:
+</code></pre></div></div>
+
+<p>One unit of time has passed by and ohh, two more processes (P2 and P3) have arrived but seems like the previous process has still not finished since it’s duration was 2 units of time (we got that from the processes file). So what do we do? we put both incoming processes in the ready queue and as soon as the currently running process P1 stops, we  run the next ready process.</p>
+
+<p><em>The number in paranthesis <strong>(1)</strong> is the duration of process</em></p>
+
+<p>The CPU is now at the 3rd unit of time:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3:P2:P3(1),:
+</code></pre></div></div>
+
+<blockquote>
+  <p>While reading this article, you must have read the phrase “units of time” and may be wondering why am I not using a defined unit such as seconds, milliseconds or microseconds. That’s because we’re leaving it your CPU. For us, 1 unit of time is the time your CPU takes to execute an instruction.</p>
+</blockquote>
+
+<p>P1 has finished and now it’s gone. It’s time for P2 to run. So we remove it from the ready queue and put it in the running state. It runs for 1 unit of time and finally the last process P3 is run for the same amount of time:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>4:P3:empty:
+</code></pre></div></div>
+
+<p><em>The ready queue is empty so we wrote <strong>empty</strong> in the third column.</em></p>
+
+<p>At this point, we have some idea of the structure of our scheduling program. We read the file given by the user for the list of processes and store them in some format. Then we run the policy also choosen by the user. Pretty simple, right? Let’s write the main function. I’ve added some comments as a nice person:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+</span>
+<span class="kt">int</span> <span class="nf">main</span> <span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">argv</span><span class="p">[]){</span>
+    <span class="c1">// Get the inputs (filename and policy) from command-line arguments</span>
+    <span class="kt">char</span> <span class="o">*</span> <span class="n">filename</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+    <span class="kt">char</span> <span class="o">*</span> <span class="n">policy</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+
+    <span class="c1">// Some error-checking to make sure we get the valid inputs</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">!=</span> <span class="mi">3</span> <span class="o">||</span> <span class="p">(</span>
+        <span class="n">strcmp</span><span class="p">(</span><span class="n">policy</span><span class="p">,</span> <span class="s">"FIFO"</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
+        <span class="n">strcmp</span><span class="p">(</span><span class="n">policy</span><span class="p">,</span> <span class="s">"SJF"</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
+        <span class="n">strcmp</span><span class="p">(</span><span class="n">policy</span><span class="p">,</span> <span class="s">"STCF"</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
+        <span class="n">strcmp</span><span class="p">(</span><span class="n">policy</span><span class="p">,</span> <span class="s">"RR"</span><span class="p">)</span>
+    <span class="p">))</span> <span class="p">{</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">"Error. Usage: ./mysched filename POLICY</span><span class="se">\n</span><span class="s">where POLICY can be one of the following strings:</span><span class="se">\n</span><span class="s">FIFO</span><span class="se">\n</span><span class="s">SFJ</span><span class="se">\n</span><span class="s">STCF</span><span class="se">\n</span><span class="s">RR</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Gotta read that file now</span>
+    <span class="kt">FILE</span> <span class="o">*</span><span class="n">fp</span><span class="p">;</span>
+    <span class="n">fp</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">"r"</span><span class="p">);</span>
+
+    <span class="c1">// Some error-handling</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">fp</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">"Error. Unable to open file %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">filename</span><span class="p">);</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// The file is now ready to be read</span>
+    <span class="c1">// We will read through it and put them in a queue</span>
+
+    <span class="c1">// Queue size (number of processes) will be</span>
+    <span class="c1">// updated by the 'read_processes' function</span>
+    <span class="kt">int</span> <span class="n">queue_size</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="c1">// Read the file, put each process in the queue</span>
+    <span class="c1">// and get the head of the queue</span>
+    <span class="k">struct</span> <span class="n">node</span> <span class="o">*</span><span class="n">head</span> <span class="o">=</span> <span class="n">read_processes</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">queue_size</span><span class="p">);</span>
+
+    <span class="c1">// It's good to sort the processes by their arrival time</span>
+    <span class="c1">// just in case they're not in correct order</span>
+    <span class="n">sort_by_arrival</span><span class="p">(</span><span class="o">&amp;</span><span class="n">head</span><span class="p">,</span> <span class="n">queue_size</span><span class="p">);</span>
+
+    <span class="c1">// Run the policy on the processes queue</span>
+    <span class="n">run_scheduler</span><span class="p">(</span><span class="n">head</span><span class="p">,</span> <span class="n">policy</span><span class="p">);</span>
+
+    <span class="c1">// Close the file</span>
+    <span class="n">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>That’s a lot of code thrown at you right away! But read through it, I know you’ll get most of it. The <code class="highlighter-rouge">read_processes</code> function returns a pointer to a <code class="highlighter-rouge">struct node</code>. It looks like this:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">node</span> <span class="p">{</span>
+    <span class="k">struct</span> <span class="n">process</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">node</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>Each node of the queue holds two things: a pointer to the process and a pointer to the next node in the queue (if it exists). A process is another <code class="highlighter-rouge">struct</code> holding four things. Guess them before looking at:</p>
+
+<div id="process-structure"></div>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">process</span> <span class="p">{</span>
+    <span class="kt">char</span><span class="o">*</span> <span class="n">name</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">pid</span><span class="p">;</span> <span class="c1">// Process Id</span>
+    <span class="kt">int</span> <span class="n">ttc</span><span class="p">;</span> <span class="c1">// Time To Complete</span>
+    <span class="kt">int</span> <span class="n">toa</span><span class="p">;</span> <span class="c1">// Time Of Arrival</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>Let’s implement the <code class="highlighter-rouge">read_processes</code> function:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">node</span><span class="o">*</span> <span class="nf">read_processes</span><span class="p">(</span><span class="kt">FILE</span><span class="o">*</span> <span class="n">fp</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span> <span class="n">queue_size</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">struct</span> <span class="n">node</span> <span class="o">*</span><span class="n">head</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+
+    <span class="c1">// Get the file size in bytes, we will use this as an estimate</span>
+    <span class="c1">// memory allocation for pid, ttc and toa</span>
+    <span class="kt">int</span> <span class="n">filesz</span> <span class="o">=</span> <span class="n">get_file_size</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+
+    <span class="c1">// Get the first character in the file</span>
+    <span class="kt">char</span> <span class="n">c</span> <span class="o">=</span> <span class="n">getc</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+
+    <span class="c1">// Until we don't reach the end of file, read the characters</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">c</span> <span class="o">!=</span> <span class="n">EOF</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">bool</span> <span class="n">iscomment</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="sc">'#'</span><span class="p">)</span> <span class="n">iscomment</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+
+        <span class="c1">// Read each line</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">c</span> <span class="o">!=</span> <span class="sc">'\n'</span><span class="p">)</span> <span class="p">{</span>
+
+            <span class="c1">// Don't do anything if it's a comment</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">iscomment</span><span class="p">)</span> <span class="p">{</span>
+
+                <span class="c1">// We're only allowing 10 characters for the process name</span>
+                <span class="kt">char</span> <span class="n">name</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+
+                <span class="c1">// filesz is a safe size to pick (it may even be too much for a single info)</span>
+                <span class="kt">char</span> <span class="n">pid</span><span class="p">[</span><span class="n">filesz</span><span class="p">];</span>
+                <span class="kt">char</span> <span class="n">ttc</span><span class="p">[</span><span class="n">filesz</span><span class="p">];</span>
+                <span class="kt">char</span> <span class="n">toa</span><span class="p">[</span><span class="n">filesz</span><span class="p">];</span>
+                
+                <span class="c1">// Read each character of a line and correctly assign</span>
+                <span class="c1">// values to name, pid, ttc and toa.</span>
+
+                <span class="c1">// ... excluded code for clarity</span>
+
+                <span class="c1">// Then enqueue the process using these 4 things</span>
+
+                <span class="n">enqueue</span><span class="p">(</span><span class="o">&amp;</span><span class="n">head</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">atoi</span><span class="p">(</span><span class="n">pid</span><span class="p">),</span> <span class="n">atoi</span><span class="p">(</span><span class="n">ttc</span><span class="p">),</span> <span class="n">atoi</span><span class="p">(</span><span class="n">toa</span><span class="p">));</span>
+                <span class="p">(</span><span class="o">*</span><span class="n">queue_size</span><span class="p">)</span><span class="o">++</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">iscomment</span><span class="p">)</span>
+                <span class="n">c</span> <span class="o">=</span> <span class="n">getc</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+        <span class="p">}</span>
+        
+        <span class="n">c</span> <span class="o">=</span> <span class="n">getc</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">head</span><span class="p">;</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>If you squint hard enough, you’ll see that we did not create any queue separately. Or in other words, there is no separate structure defined for a queue. That’s because we can simply create a <code class="highlighter-rouge">node</code> and chain it with subsequent ones using the <code class="highlighter-rouge">next</code> pointer. That’ll be our queue! We can use the <code class="highlighter-rouge">enqueue</code> function to add a new node (containing a process) at the end of the chain. I am not going to show the implementation of the functions <code class="highlighter-rouge">get_file_size</code> or <code class="highlighter-rouge">enqueue</code>, but you can find the complete <a href="https://github.com/FarooqAR/sim_schedular/">source code on Github</a>.</p>
+
+<p>In the <a href="../simulating-cpu-scheduler-pt-3">next article</a>, we’ll implement the four policies. See you there!</p>
+
+
+
+
+    <div class="blog-navigation">
+        
+            <a class="prev"></a>
+        
+        
+    </div>
+
+
+
+    <div class="related">
+    
+    
+        
+        
+    
+        
+        
+    
+        
+        
+    
+        
+        
+    
+        
+        
+    
+        
+        
+    
+    
+</div>
+
+
+
+
+    <section class="author">
+    <div class="toleft">
+        <img class="selfie" src="https://farooqar.github.io/" alt="">
+    </div>
+
+    <div class="toright">
+        <h4 class="name"></h4>
+        <p class="bio"></p>
+
+        <div class="share">
+            <!-- Note: Only use three share links if your site width is set to large -->
+            <!-- If site width is set to normal, you may choose any two share links -->
+            <a class="twitter" href="https://twitter.com/intent/tweet?text=https://farooqar.github.io/simulating-cpu-scheduler-pt-2/ - CPU Scheduling - Part 2 - Setting Up by @">
+                <svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg><span class="icon-twitter">Tweet</span>
+            </a>
+
+            <a class="facebook" href="javascript:void(0)" onclick="window.open('https://facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href), 'facebook-share-dialog', 'width=626,height=436'); return false;">
+                <svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg><span class="icon-facebook-rect">Share</span>
+            </a>
+
+            <!-- <a class="google-plus" href="https://plus.google.com/share?url=https://farooqar.github.io/simulating-cpu-scheduler-pt-2/" target="_blank">
+                <svg class="icon icon-google-plus"><use xlink:href="#icon-google-plus"></use></svg><span class="icon-google-plus">Share</span>
+            </a> -->
+
+            <!-- <a class="linkedin" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://farooqar.github.io/simulating-cpu-scheduler-pt-2/&amp;title=CPU Scheduling - Part 2 - Setting Up&amp;summary=&amp;source=https://farooqar.github.io" target="_blank">
+                <svg class="icon icon-linkedin"><use xlink:href="#icon-linkedin"></use></svg><span class="icon-linkedin">Share</span>
+            </a> -->
+
+            <!-- <a class="reddit" href="https://reddit.com/submit?url=https://farooqar.github.io/simulating-cpu-scheduler-pt-2/&amp;title=CPU Scheduling - Part 2 - Setting Up" target="_blank">
+                <svg class="icon icon-reddit"><use xlink:href="#icon-reddit"></use></svg><span class="icon-reddit">Share</span>
+            </a> -->
+        </div>
+    </div>
 </section>
+
+
+
+
+
+
+<footer class="footer-main">
+    Farooq AR © 2020 <a class="link" href="https://farooqar.github.io/feed.xml" target="_blank"><svg class="icon icon-rss"><use xlink:href="#icon-rss"></use></svg></a>
+</footer>
+
+
         </div>
     </div>
 

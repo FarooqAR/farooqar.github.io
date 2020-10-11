@@ -25,20 +25,22 @@
     <meta property="og:type" content="profile">
 
     <!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Farooq AR | Farooq AR’s portfolio</title>
+<title>Simulating a CPU Scheduler | Farooq AR</title>
 <meta name="generator" content="Jekyll v3.8.7" />
-<meta property="og:title" content="Farooq AR" />
+<meta property="og:title" content="Simulating a CPU Scheduler" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Farooq AR’s portfolio" />
 <meta property="og:description" content="Farooq AR’s portfolio" />
-<link rel="canonical" href="https://farooqar.github.io/404.html" />
-<meta property="og:url" content="https://farooqar.github.io/404.html" />
+<link rel="canonical" href="https://farooqar.github.io/simulating-cpu-scheduler/" />
+<meta property="og:url" content="https://farooqar.github.io/simulating-cpu-scheduler/" />
 <meta property="og:site_name" content="Farooq AR" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-09-20T00:00:00+05:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Farooq AR" />
+<meta property="twitter:title" content="Simulating a CPU Scheduler" />
 <meta name="twitter:site" content="@" />
 <script type="application/ld+json">
-{"@type":"WebPage","url":"https://farooqar.github.io/404.html","headline":"Farooq AR","description":"Farooq AR’s portfolio","@context":"https://schema.org"}</script>
+{"@type":"BlogPosting","url":"https://farooqar.github.io/simulating-cpu-scheduler/","headline":"Simulating a CPU Scheduler","datePublished":"2020-09-20T00:00:00+05:00","dateModified":"2020-09-20T00:00:00+05:00","description":"Farooq AR’s portfolio","mainEntityOfPage":{"@type":"WebPage","@id":"https://farooqar.github.io/simulating-cpu-scheduler/"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     
@@ -64,7 +66,7 @@
 <meta name="msapplication-square310x310logo" content="mstile-310x310.png" />
 
 
-    <link rel="canonical" href="https://farooqar.github.io/404.html">
+    <link rel="canonical" href="https://farooqar.github.io/simulating-cpu-scheduler/">
     <link rel="alternate" type="application/rss+xml" title="" href="https://farooqar.github.io/feed.xml" />
 
     <style>
@@ -1431,19 +1433,214 @@ pre {
     <div class="wrapper-normal">
         
             
-                <div class="page ">
+                <div class="page simulating a cpu scheduler">
             
         
 
-            <section class="lost-container">
-  <h1>Uh oh!</h1>
-  <div class="link">
-    <img class="selfie" alt="Farooq AR" src="https://farooqar.github.io/assets/images/error.gif" />
-  </div>
-  <br />
-  <br />
-  <a href="/">Take me home!</a>
+            
+
+
+
+<nav class="nav">
+    
+        <a class="logo-link" href="/">
+            <img class="logo" src="/assets/images/profile.jpg" width="35px" height="35px">
+            <span class="logo-text">Farooq AR</span>
+        </a>
+    
+    <ul class="list">
+        
+            <li class="item">
+                <a class="link" href="https://farooqar.github.io/">Home</a>
+            </li>
+        
+
+        
+            
+                <li class="item">
+                    <a class="link" href="https://farooqar.github.io/blog">Blog</a>
+                </li>
+            
+        
+
+        
+
+        
+            
+                <li class="item">
+                    <a class="link" href="https://farooqar.github.io/about">About</a>
+                </li>
+            
+        
+
+        
+    </ul>
+</nav>
+
+
+
+
+
+<h1 class="title">Simulating a CPU Scheduler</h1>
+
+<span class="date">
+    <time datetime="20-09-2020">Sunday. September 20, 2020</time>
+     - <span class="reading-time" title="Estimated read time">
+    
+
+    
+        6 mins
+    
+</span>
+
+</span>
+
+
+    <div class="post-tags">
+        
+    </div>
+
+
+<p><img src="../assets/images/duck-queue.jpg" alt="Ducks in line" /></p>
+
+<p>These wooden ducks look so decourous in a proper line! They depict order and mannerism. A single duck getting out of line can create chaos and a mess. Though not as precisely as in this picture, ducks in nature do follow order and avoid chaos. Aside from the poopy mess they create, if you ever had them as pets, we want our cpu scheduler to be just like that; avoiding chaos and mess.</p>
+
+<p>Without diving into the philosophical definitions of order and chaos, as tempting as it may be, we’ll explore the basic foundations of scheduling mechanisms operating systems use. I realized it won’t be as much fun to read a pompous writing, so I am thrilled to tell you that there will be some action as well. We’ll write our cpu scheduler in C language as we go along the exploratory path. If you’ve personal grudges against the C language, fear not, we’ll try for a smooth sailing!</p>
+
+<p>You want your computer to run multiple programs (we’ll call them processes) and not just run them, but switch between them without any delays. You would not want to see your computer lagging when opening your favorite browser along with a text editor. This demands some mechanism which schedules these processes properly. Such a mechanism is called CPU scheduling. The term CPU scheduling does not imply that the scheduling is done solely by CPU. Operating systems have a big role to play in scheduling processes on a CPU.</p>
+
+<blockquote>
+  <p>Nowhere in this article or its sequels, do we think about multi-processing. As a wise person said, complexity breeds obscurity.</p>
+</blockquote>
+
+<h2 id="first-come-first-serve">First come, first serve</h2>
+
+<p>The simplest of these policies is using a queue (First In First Out). Think of the checkout line in a grocery store. Three people (<strong>A</strong>lice, <strong>B</strong>ob and <strong>C</strong>lara) are standing in the queue. <strong>A</strong>lice is on the front taking 100 seconds to checkout all her items. While the other two persons (<strong>B</strong>ob &amp; <strong>C</strong>lara) will just take 10 seconds each, they still need to wait until <strong>A</strong>lice is finished. Our first policy implementation is going to be FIFO. A good rule of thumb is to start simple and gradually increase the complexity!</p>
+
+<p><img src="../assets/images/fifo_sched.PNG" alt="fifo scheduling" />
+<em style="display:block;text-align:center;">FIFO Policy. Credits: OS: Three Easy Pieces</em></p>
+
+<h2 id="serve-those-who-take-less-time">Serve those who take less time</h2>
+
+<p>Assuming all three came at the same time, can we let <strong>B</strong>ob and <strong>C</strong>lara go ahead first and finish their checkout? I know, it seems unfair, but let’s switch the context to computers. You’d want a task taking less time to complete first, no? That’s what this type of scheduling policy is going to achieve. Known as Shortest Job First (SJF), this policy works on the assumption that a shorter job has a higher priority and thus be executed first. What seems unfair in the grocery line is actually fair in case of computers, for your benefit!</p>
+
+<p><img src="../assets/images/sjf_sched.PNG" alt="sjf scheduling" />
+<em style="display:block;text-align:center;">SJF Policy. Credits: OS: Three Easy Pieces</em></p>
+
+<h2 id="serve-those-who-take-less-time-even-if-they-come-late">Serve those who take less time, even if they come late</h2>
+
+<p>Sorry to give you a bummer, but the SJF policy is dumb. It assumes that all people (read jobs/processes/tasks) come at the same time. That’s not how a real world works. People come at random times in the grocery line after they’re finished shopping. Let’s be unfair again to people who came early but will take a lot of time. Let’s be real, the world is not fair, and neither can our imaginary world be. Ummm actually, we’re going to be a little more harsh. If a job <strong>A</strong> is running and jobs <strong>B</strong> and <strong>C</strong> come in at 10th second, the schedular will recognize that <strong>A</strong>lice is still going to take more time (80 more seconds) than <strong>B</strong>ob and <strong>C</strong>lara, and following conversation will happen:</p>
+
+<p>Schedular: <em>Hi <strong>A</strong>lice, sorry to interrupt you in the middle but seems like you are going to take too long to finish, so how about you get back at the end of the queue and let <strong>B</strong>ob and <strong>C</strong>lara finish first.</em></p>
+
+<p><strong>A</strong>lice: <em>No I won’t!</em></p>
+
+<p>Schedular: <em>I wasn’t asking</em> 😈</p>
+
+<p>This type of scheduling policy is called Shortest Time to Completion First (STCF) and also called a preemptive version of SJF. That is, a longer job preemptively stops to make time for incoming shorter jobs. As always, an illustration is a thousand times better:</p>
+
+<p><img src="../assets/images/stcf_sched.PNG" alt="stcf scheduling" />
+<em style="display:block;text-align:center;">STCF Policy. Credits: OS: Three Easy Pieces</em></p>
+
+<h2 id="serve-everyone-equally">Serve everyone equally!</h2>
+
+<p>We started with a simple FIFO, which was biased towards longer running jobs. Next we explored SJF, which solved the previous problem, but which naively assumed that all jobs were coming at the same time. To tackle that, we came up with STCF, which gave shorter jobs more privilige, even when they came late. Hmmm wait! Do you smell the problem? Do you feel like the processes are not given an equal chance? <em>If you smelled a different problem, you’re probably ahead of this article :)</em></p>
+
+<p>Well, that’s what those programmers thought who came up with the Round Robin scheduling policy. Why not give every job an equal time before they preemptively stop to let the next job run for the same amount of time? This is called time-sharing or time-slice-sharing and Round Robin is based on this concept. See the figure below, every job is given a time slice of 1 second (it can be any constant). Once the job has used up its time slice and there are other jobs waiting in queue, it stops and goes to the end of the queue. Our scheduler must have secured a heaven for such a Robin Hood act!</p>
+
+<p><img src="../assets/images/rr_sched.PNG" alt="rr scheduling" />
+<em style="display:block;text-align:center;">RR Policy. Credits: OS: Three Easy Pieces</em></p>
+
+<h2 id="wrapping-up--moving-on-to-implementation">Wrapping up &amp; Moving on to Implementation</h2>
+
+<p>Is RR the best policy? Of course not, there are problems with RR algorithm (<em>policy == algorithm</em>) which are addressed by more complex algorithms such as Multi Level Feedback Queue, Lottery Scheduling, Completely Fair Scheduling (it’s not completely fair to be honest), Brain F**k Scheduler (yes it exists) and others which are out of the scope of this post. But what’s good about what we’ve covered so far is that these are fundamentals, and they’re the origin of smart scheduling algorithms that operating systems use today. That’s why we’re going to stick to these four algorithms (or policies) in our implementation. See you in the <a href="../simulating-cpu-scheduler-pt-2">next article</a> series where we do some action!</p>
+
+<p><img src="../assets/images/fairness_dilemma.PNG" alt="fairness dilemma" />
+<em style="display:block;text-align:center;">The Fairness Dilemma. Created using <a href="http://cmx.io" target="_blank">cmx.io</a></em></p>
+
+
+
+    <div class="blog-navigation">
+        
+            <a class="prev"></a>
+        
+        
+    </div>
+
+
+
+    <div class="related">
+    
+    
+        
+        
+    
+        
+        
+    
+        
+        
+    
+        
+        
+    
+        
+        
+    
+        
+        
+    
+    
+</div>
+
+
+
+
+    <section class="author">
+    <div class="toleft">
+        <img class="selfie" src="https://farooqar.github.io/" alt="">
+    </div>
+
+    <div class="toright">
+        <h4 class="name"></h4>
+        <p class="bio"></p>
+
+        <div class="share">
+            <!-- Note: Only use three share links if your site width is set to large -->
+            <!-- If site width is set to normal, you may choose any two share links -->
+            <a class="twitter" href="https://twitter.com/intent/tweet?text=https://farooqar.github.io/simulating-cpu-scheduler/ - Simulating a CPU Scheduler by @">
+                <svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg><span class="icon-twitter">Tweet</span>
+            </a>
+
+            <a class="facebook" href="javascript:void(0)" onclick="window.open('https://facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href), 'facebook-share-dialog', 'width=626,height=436'); return false;">
+                <svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg><span class="icon-facebook-rect">Share</span>
+            </a>
+
+            <!-- <a class="google-plus" href="https://plus.google.com/share?url=https://farooqar.github.io/simulating-cpu-scheduler/" target="_blank">
+                <svg class="icon icon-google-plus"><use xlink:href="#icon-google-plus"></use></svg><span class="icon-google-plus">Share</span>
+            </a> -->
+
+            <!-- <a class="linkedin" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://farooqar.github.io/simulating-cpu-scheduler/&amp;title=Simulating a CPU Scheduler&amp;summary=&amp;source=https://farooqar.github.io" target="_blank">
+                <svg class="icon icon-linkedin"><use xlink:href="#icon-linkedin"></use></svg><span class="icon-linkedin">Share</span>
+            </a> -->
+
+            <!-- <a class="reddit" href="https://reddit.com/submit?url=https://farooqar.github.io/simulating-cpu-scheduler/&amp;title=Simulating a CPU Scheduler" target="_blank">
+                <svg class="icon icon-reddit"><use xlink:href="#icon-reddit"></use></svg><span class="icon-reddit">Share</span>
+            </a> -->
+        </div>
+    </div>
 </section>
+
+
+
+
+
+
+<footer class="footer-main">
+    Farooq AR © 2020 <a class="link" href="https://farooqar.github.io/feed.xml" target="_blank"><svg class="icon icon-rss"><use xlink:href="#icon-rss"></use></svg></a>
+</footer>
+
+
         </div>
     </div>
 

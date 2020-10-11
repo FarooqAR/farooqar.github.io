@@ -1,4 +1,403 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-07-29T17:21:44+05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Farooq AR</title><subtitle>Farooq AR's portfolio</subtitle><entry><title type="html">Creating a React-like library from scratch</title><link href="http://localhost:4000/creating-react-clone/" rel="alternate" type="text/html" title="Creating a React-like library from scratch" /><published>2020-07-27T00:00:00+05:00</published><updated>2020-07-27T00:00:00+05:00</updated><id>http://localhost:4000/creating-react-clone</id><content type="html" xml:base="http://localhost:4000/creating-react-clone/">&lt;p&gt;I have been developing React apps for quite a while and not a day passes by when I wonder
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="https://farooqar.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://farooqar.github.io/" rel="alternate" type="text/html" /><updated>2020-10-11T11:47:17+05:00</updated><id>https://farooqar.github.io/feed.xml</id><title type="html">Farooq AR</title><subtitle>Farooq AR's portfolio</subtitle><entry><title type="html">How A Speaker Works?</title><link href="https://farooqar.github.io/how-a-speaker-works/" rel="alternate" type="text/html" title="How A Speaker Works?" /><published>2020-10-09T00:00:00+05:00</published><updated>2020-10-09T00:00:00+05:00</updated><id>https://farooqar.github.io/how-a-speaker-works</id><content type="html" xml:base="https://farooqar.github.io/how-a-speaker-works/">&lt;p&gt;I created this “thing explainer” as part of my undergrad course called Science Technology &amp;amp; Society. Inspired from Randall Monroe’s &lt;a href=&quot;https://xkcd.com/1133/&quot;&gt;Up Goer Five&lt;/a&gt; and &lt;a href=&quot;https://xkcd.com/thing-explainer/&quot;&gt;Thing Explainer&lt;/a&gt;, the objective was to use a very simple language in explaining a scientific concept or a thing. I chose a speaker. “Hmmm, how hard is it going to be?”, I thought. I tried it and I have to say, it was a bit of struggle finding simple words at start. But it turned out to be hella fun!&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;That cone thing puts me off every time I look at it. It doesn’t look … cony.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img style=&quot;max-width:195%;margin-left:-40%;&quot; src=&quot;../assets/images/speaker_working.PNG&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;If this doesn’t look like a speaker to you on first look, I didn’t do a good job. If this resembles some dope tech for you, I am still proud.&lt;/em&gt;&lt;/p&gt;</content><author><name></name></author><category term="blog" /><summary type="html">I created this “thing explainer” as part of my undergrad course called Science Technology &amp;amp; Society. Inspired from Randall Monroe’s Up Goer Five and Thing Explainer, the objective was to use a very simple language in explaining a scientific concept or a thing. I chose a speaker. “Hmmm, how hard is it going to be?”, I thought. I tried it and I have to say, it was a bit of struggle finding simple words at start. But it turned out to be hella fun!</summary></entry><entry><title type="html">CPU Scheduling - Part 3 - Implementing the Policies</title><link href="https://farooqar.github.io/simulating-cpu-scheduler-pt-3/" rel="alternate" type="text/html" title="CPU Scheduling - Part 3 - Implementing the Policies" /><published>2020-10-06T00:00:00+05:00</published><updated>2020-10-06T00:00:00+05:00</updated><id>https://farooqar.github.io/simulating-cpu-scheduler-pt-3</id><content type="html" xml:base="https://farooqar.github.io/simulating-cpu-scheduler-pt-3/">&lt;p&gt;&lt;img src=&quot;../assets/images/sched_idea_queue.PNG&quot; alt=&quot;sched_idea_queue&quot; /&gt;
+&lt;em style=&quot;display:block;text-align:center;&quot;&gt;A long time ago&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;We’ve so far discussed the four policies in &lt;a href=&quot;../simulating-cpu-scheduler&quot;&gt;my first article&lt;/a&gt; and the initial setup in &lt;a href=&quot;../simulating-cpu-scheduler-pt-2&quot;&gt;my second article&lt;/a&gt;. Your sleeves should be rolled up by now. If not, give a read on my first two posts and then come back!&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;All the code is already on this &lt;a href=&quot;https://github.com/FarooqAR/sim_schedular&quot;&gt;Github repo&lt;/a&gt; and I am happy to receive contributions!&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;implementing-the-fifo-policy&quot;&gt;Implementing the FIFO Policy&lt;/h2&gt;
+&lt;p&gt;Let’s cut through the chatter and dive into the algorithm:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Take the processes’ queue &lt;code class=&quot;highlighter-rouge&quot;&gt;PQ&lt;/code&gt; as an input&lt;/li&gt;
+  &lt;li&gt;Create three variables for the currently running process &lt;code class=&quot;highlighter-rouge&quot;&gt;current&lt;/code&gt;, a ready queue &lt;code class=&quot;highlighter-rouge&quot;&gt;RQ&lt;/code&gt; and a counter for &lt;code class=&quot;highlighter-rouge&quot;&gt;time&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;Keep doing the following until &lt;code class=&quot;highlighter-rouge&quot;&gt;PQ&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;RQ&lt;/code&gt; and the &lt;code class=&quot;highlighter-rouge&quot;&gt;current&lt;/code&gt; process have become empty:
+    &lt;ul&gt;
+      &lt;li&gt;See which processes in &lt;code class=&quot;highlighter-rouge&quot;&gt;PQ&lt;/code&gt; arrived at &lt;code class=&quot;highlighter-rouge&quot;&gt;time&lt;/code&gt;. Put them in &lt;code class=&quot;highlighter-rouge&quot;&gt;RQ&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;span id=&quot;second-step&quot;&gt;&lt;/span&gt;Update the &lt;code class=&quot;highlighter-rouge&quot;&gt;current&lt;/code&gt; process&lt;/li&gt;
+      &lt;li&gt;Print the current state of CPU with &lt;a href=&quot;../simulating-cpu-scheduler-pt-2#output-format&quot;&gt;the required format&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;Decrement &lt;code class=&quot;highlighter-rouge&quot;&gt;current&lt;/code&gt;’s &lt;a href=&quot;../simulating-cpu-scheduler-pt-2#process-structure&quot;&gt;time to completion&lt;/a&gt; since it has consumed 1 unit of time&lt;/li&gt;
+      &lt;li&gt;Increment the &lt;code class=&quot;highlighter-rouge&quot;&gt;time&lt;/code&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;If you understand this algorithm and the code, you can easily follow for SJF and STCF as well, since they’re only a slight variations of the FIFO policy. Housekeeping stuff aside, the code is pretty simple.&lt;/p&gt;
+
+&lt;div class=&quot;language-c highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;run_fifo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;is_sjf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;process&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;current&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ready_q_head&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ready_q_size&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;current&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ready_q_head&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;toa&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;current&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;current&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dequeue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; 
+                &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;process&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dequeue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                    &lt;span class=&quot;c1&quot;&gt;// we may want to enqueue only if ttc &amp;gt; 0&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;enqueue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ready_q_head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ttc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;toa&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;ready_q_size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;is_sjf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                        &lt;span class=&quot;n&quot;&gt;sort_by_duration&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ready_q_head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ready_q_size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;free_process&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+                &lt;span class=&quot;c1&quot;&gt;// Dequeue operation deletes current node at `tmp` &lt;/span&gt;
+                &lt;span class=&quot;c1&quot;&gt;// and update `tmp` with `tmp-&amp;gt;next`, &lt;/span&gt;
+                &lt;span class=&quot;c1&quot;&gt;// this means the node `head` becomes dangling&lt;/span&gt;
+                &lt;span class=&quot;c1&quot;&gt;// so we need to manually update `head` &lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; 
+            &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;current&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;current&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ttc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;free_process&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;current&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ready_q_head&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;current&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dequeue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ready_q_head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;ready_q_size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;current&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;current&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ttc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;fprintf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stdout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;%d:idle:&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; 
+                    &lt;span class=&quot;n&quot;&gt;fprintf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stdout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;%d:%s:&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;current&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                
+                &lt;span class=&quot;n&quot;&gt;print_ready_q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ready_q_head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;fprintf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stdout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;current&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ttc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;fprintf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stdout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;%d:idle:empty:&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;    
+            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;fprintf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stdout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;%d:idle:empty:&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;implementing-the-sjf-policy&quot;&gt;Implementing the SJF Policy&lt;/h2&gt;
+
+&lt;p&gt;See the first sub-step of the 3rd step in the previous section. One addition we can make here is that we always keep the ready queue &lt;code class=&quot;highlighter-rouge&quot;&gt;RQ&lt;/code&gt; in sorted order. Remember in SJF, the shortest job is given the most attention. That’s what we did here through sorting and that’s all we need to convert the FIFO policy into SJF. In the &lt;a href=&quot;https://github.com/FarooqAR/sim_schedular/blob/master/sched.c#L87&quot;&gt;code&lt;/a&gt;, we have added an additional flag &lt;code class=&quot;highlighter-rouge&quot;&gt;is_sjf&lt;/code&gt; to achieve this.&lt;/p&gt;
+
+&lt;h2 id=&quot;implementing-the-stcf-policy&quot;&gt;Implementing the STCF Policy&lt;/h2&gt;
+
+&lt;p&gt;We are on an easy ride here. The STCF policy is similar to SJF with an additional step of checking to see if the current process is shorter than the ready processes. If it is, keep going, otherwise, move it to the ready queue and update the current process with the shortest job in ready queue. The ready queue needs to be sorted again. &lt;a href=&quot;https://github.com/FarooqAR/sim_schedular/blob/master/sched.c#L124&quot;&gt;This part&lt;/a&gt; of the code does all of that.&lt;/p&gt;
+
+&lt;h2 id=&quot;implementing-the-rr-policy&quot;&gt;Implementing the RR Policy&lt;/h2&gt;
+
+&lt;p&gt;The crux of Round Robin scheduling is time-sharing. We assume the time slice is 1 unit of time. The algo lyrics are again similar and the only difference is the addition of following step before the &lt;span id=&quot;second-step-click&quot;&gt;&lt;a href=&quot;#second-step&quot;&gt;2nd step&lt;/a&gt;&lt;/span&gt; in the iteration:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;If &lt;code class=&quot;highlighter-rouge&quot;&gt;current&lt;/code&gt; is not empty, put it at the end of ready queue&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If you haven’t figured it out, we are switching to the next ready process at every unit of time. If there is only one process, it gets all the time slices.&lt;/p&gt;
+
+&lt;script&gt;
+document.getElementById(&quot;second-step-click&quot;).onclick = function() {
+    document.getElementById(&quot;second-step&quot;).parentNode.style.backgroundColor = &quot;#0080002b&quot;;
+}
+&lt;/script&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;The beauty of these studying these scheduling algorithms is the nostalgic insights one get on how early programmers tackled the scheduling problems. In this three part series, we got to look at the four basic algorithms which essentially became the basis of more complex algorithms. For example, the multi-level feedback queue is a combination of multiple queues and RR policy. CFS (Completely Fair Scheduling) is yet another algorithm which is similar to RR but with varied time slices. It also has user-defined process priorities which are accomplished through &lt;code class=&quot;highlighter-rouge&quot;&gt;niceness&lt;/code&gt; parameter(s).&lt;/p&gt;
+
+&lt;p&gt;As with any basic solution, the four algos come with problems which make them unfit for practical use. The purpose of this series was not to shed light on those problems and edge cases, but to cover the minimal grounds. I hope I did a good job there.&lt;/p&gt;
+
+&lt;p&gt;If you found this article useful, follow me on &lt;a href=&quot;https://twitter.com/farooq_ar&quot;&gt;twitter&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><category term="blog" /><summary type="html">A long time ago</summary></entry><entry><title type="html">CPU Scheduling - Part 2 - Setting Up</title><link href="https://farooqar.github.io/simulating-cpu-scheduler-pt-2/" rel="alternate" type="text/html" title="CPU Scheduling - Part 2 - Setting Up" /><published>2020-09-25T00:00:00+05:00</published><updated>2020-09-25T00:00:00+05:00</updated><id>https://farooqar.github.io/simulating-cpu-scheduler-pt-2</id><content type="html" xml:base="https://farooqar.github.io/simulating-cpu-scheduler-pt-2/">&lt;p&gt;Let’s talk about what our final product would look like. We’ll write a C program which takes a type of policy and a list of processes as inputs, and outputs the state of our CPU at any given time. If you’ve read the &lt;a href=&quot;../simulating-cpu-scheduler&quot;&gt;previous article&lt;/a&gt;, you already know the four types of scheduling policies we’re going to implement:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;FIFO (First In First Out)&lt;/li&gt;
+  &lt;li&gt;SJF (Shortest Job First)&lt;/li&gt;
+  &lt;li&gt;STCF (Shortest Time to Completion First) and&lt;/li&gt;
+  &lt;li&gt;RR (Round Robin)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We’re storing the list of processes in a file called &lt;code class=&quot;highlighter-rouge&quot;&gt;processes.dat&lt;/code&gt;. It’s a simple text file with a specific format which I am going to discuss next. Here’s what an example file looks like:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# pname:pid:duration:arrivaltime
+# process 1
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;P1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;13&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# process 2
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;P2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# process 3
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;P3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Any line starting with the pound (#) sign is a comment, so our code must ignore it. The rest of the lines correspond to the processes. Each line represents a single process. Let’s take a close look at the first process:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;P1:13:2:1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;There are four things, each separated by a colon (:), to describe this process:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Name (&lt;code class=&quot;highlighter-rouge&quot;&gt;P1&lt;/code&gt; in this case). A combination of alphabets and integers.&lt;/li&gt;
+  &lt;li&gt;Id or pid (&lt;code class=&quot;highlighter-rouge&quot;&gt;13&lt;/code&gt; here). Not really useful in our program, but I’ve kept it for fun.&lt;/li&gt;
+  &lt;li&gt;Duration (&lt;code class=&quot;highlighter-rouge&quot;&gt;2&lt;/code&gt; for process P1). It’s the number of units of time the process takes to finish.&lt;/li&gt;
+  &lt;li&gt;Arrival time (&lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt;). When did the process come? Again, a number of units of time.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;em&gt;All the numeric quantities are non-negative integers&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;How do we run this program? After the compilation, we’ll be able to run it like this:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./main processes.dat FIFO
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Where &lt;code class=&quot;highlighter-rouge&quot;&gt;./main&lt;/code&gt; is our program and the next two arguments are the processes file and the policy type (respectively).&lt;/p&gt;
+
+&lt;h2 id=&quot;the-output&quot;&gt;The Output&lt;/h2&gt;
+
+&lt;p&gt;The output of our program will be the state of CPU from start to the end. Each line in the output gives us the state of the CPU at a particular time. Take the following output for example:&lt;/p&gt;
+
+&lt;div id=&quot;output-format&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1:P1:empty:
+2:P1:P2(1),P3(1),:
+3:P2:P3(1),:
+4:P3:empty:
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Don’t freak out! We’ll go through it line by line. The first line is:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1:P1:empty:
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This tells us that at the start (1st unit of time) of our CPU execution, a process P1 has arrived and needs to be run. Since there is no other process running, the CPU runs P1. Also, P1 was the only process which came that early, so the waiting line is empty. We call this waiting line a ready state or a ready queue. In summary, each output line has the following format:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Time:Currently Running Process:Ready State:
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Next, we have:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;2:P1:P2(1),P3(1),:
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;One unit of time has passed by and ohh, two more processes (P2 and P3) have arrived but seems like the previous process has still not finished since it’s duration was 2 units of time (we got that from the processes file). So what do we do? we put both incoming processes in the ready queue and as soon as the currently running process P1 stops, we  run the next ready process.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;The number in paranthesis &lt;strong&gt;(1)&lt;/strong&gt; is the duration of process&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;The CPU is now at the 3rd unit of time:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;3:P2:P3(1),:
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;While reading this article, you must have read the phrase “units of time” and may be wondering why am I not using a defined unit such as seconds, milliseconds or microseconds. That’s because we’re leaving it your CPU. For us, 1 unit of time is the time your CPU takes to execute an instruction.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;P1 has finished and now it’s gone. It’s time for P2 to run. So we remove it from the ready queue and put it in the running state. It runs for 1 unit of time and finally the last process P3 is run for the same amount of time:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;4:P3:empty:
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;em&gt;The ready queue is empty so we wrote &lt;strong&gt;empty&lt;/strong&gt; in the third column.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;At this point, we have some idea of the structure of our scheduling program. We read the file given by the user for the list of processes and store them in some format. Then we run the policy also choosen by the user. Pretty simple, right? Let’s write the main function. I’ve added some comments as a nice person:&lt;/p&gt;
+
+&lt;div class=&quot;language-c highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;string.h&amp;gt;
+&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;argc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;argv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]){&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// Get the inputs (filename and policy) from command-line arguments&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;argv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;policy&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;argv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// Some error-checking to make sure we get the valid inputs&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;argc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;strcmp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;policy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;FIFO&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;strcmp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;policy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;SJF&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;strcmp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;policy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;STCF&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;strcmp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;policy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;RR&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;fprintf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stderr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Error. Usage: ./mysched filename POLICY&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;where POLICY can be one of the following strings:&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;FIFO&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;SFJ&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;STCF&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;RR&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// Gotta read that file now&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;FILE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;fp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fopen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;r&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// Some error-handling&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;fprintf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stderr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Error. Unable to open file %s&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// The file is now ready to be read&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// We will read through it and put them in a queue&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// Queue size (number of processes) will be&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// updated by the 'read_processes' function&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;queue_size&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// Read the file, put each process in the queue&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// and get the head of the queue&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;read_processes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queue_size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// It's good to sort the processes by their arrival time&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// just in case they're not in correct order&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;sort_by_arrival&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;queue_size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// Run the policy on the processes queue&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;run_scheduler&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;policy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// Close the file&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;fclose&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;That’s a lot of code thrown at you right away! But read through it, I know you’ll get most of it. The &lt;code class=&quot;highlighter-rouge&quot;&gt;read_processes&lt;/code&gt; function returns a pointer to a &lt;code class=&quot;highlighter-rouge&quot;&gt;struct node&lt;/code&gt;. It looks like this:&lt;/p&gt;
+
+&lt;div class=&quot;language-c highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;process&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Each node of the queue holds two things: a pointer to the process and a pointer to the next node in the queue (if it exists). A process is another &lt;code class=&quot;highlighter-rouge&quot;&gt;struct&lt;/code&gt; holding four things. Guess them before looking at:&lt;/p&gt;
+
+&lt;div id=&quot;process-structure&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;language-c highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;process&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// Process Id&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ttc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// Time To Complete&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;toa&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// Time Of Arrival&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Let’s implement the &lt;code class=&quot;highlighter-rouge&quot;&gt;read_processes&lt;/code&gt; function:&lt;/p&gt;
+
+&lt;div class=&quot;language-c highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;read_processes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;FILE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;queue_size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// Get the file size in bytes, we will use this as an estimate&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// memory allocation for pid, ttc and toa&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filesz&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;get_file_size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// Get the first character in the file&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;getc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// Until we don't reach the end of file, read the characters&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;EOF&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;iscomment&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'#'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;iscomment&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+        &lt;span class=&quot;c1&quot;&gt;// Read each line&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+
+            &lt;span class=&quot;c1&quot;&gt;// Don't do anything if it's a comment&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iscomment&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+
+                &lt;span class=&quot;c1&quot;&gt;// We're only allowing 10 characters for the process name&lt;/span&gt;
+                &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+
+                &lt;span class=&quot;c1&quot;&gt;// filesz is a safe size to pick (it may even be too much for a single info)&lt;/span&gt;
+                &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filesz&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+                &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ttc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filesz&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+                &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;toa&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filesz&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+                
+                &lt;span class=&quot;c1&quot;&gt;// Read each character of a line and correctly assign&lt;/span&gt;
+                &lt;span class=&quot;c1&quot;&gt;// values to name, pid, ttc and toa.&lt;/span&gt;
+
+                &lt;span class=&quot;c1&quot;&gt;// ... excluded code for clarity&lt;/span&gt;
+
+                &lt;span class=&quot;c1&quot;&gt;// Then enqueue the process using these 4 things&lt;/span&gt;
+
+                &lt;span class=&quot;n&quot;&gt;enqueue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;atoi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;atoi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ttc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;atoi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;toa&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queue_size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iscomment&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;getc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        
+        &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;getc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If you squint hard enough, you’ll see that we did not create any queue separately. Or in other words, there is no separate structure defined for a queue. That’s because we can simply create a &lt;code class=&quot;highlighter-rouge&quot;&gt;node&lt;/code&gt; and chain it with subsequent ones using the &lt;code class=&quot;highlighter-rouge&quot;&gt;next&lt;/code&gt; pointer. That’ll be our queue! We can use the &lt;code class=&quot;highlighter-rouge&quot;&gt;enqueue&lt;/code&gt; function to add a new node (containing a process) at the end of the chain. I am not going to show the implementation of the functions &lt;code class=&quot;highlighter-rouge&quot;&gt;get_file_size&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;enqueue&lt;/code&gt;, but you can find the complete &lt;a href=&quot;https://github.com/FarooqAR/sim_schedular/&quot;&gt;source code on Github&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;In the &lt;a href=&quot;../simulating-cpu-scheduler-pt-3&quot;&gt;next article&lt;/a&gt;, we’ll implement the four policies. See you there!&lt;/p&gt;</content><author><name></name></author><category term="blog" /><summary type="html">Let’s talk about what our final product would look like. We’ll write a C program which takes a type of policy and a list of processes as inputs, and outputs the state of our CPU at any given time. If you’ve read the previous article, you already know the four types of scheduling policies we’re going to implement:</summary></entry><entry><title type="html">Simulating a CPU Scheduler</title><link href="https://farooqar.github.io/simulating-cpu-scheduler/" rel="alternate" type="text/html" title="Simulating a CPU Scheduler" /><published>2020-09-20T00:00:00+05:00</published><updated>2020-09-20T00:00:00+05:00</updated><id>https://farooqar.github.io/simulating-cpu-scheduler</id><content type="html" xml:base="https://farooqar.github.io/simulating-cpu-scheduler/">&lt;p&gt;&lt;img src=&quot;../assets/images/duck-queue.jpg&quot; alt=&quot;Ducks in line&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;These wooden ducks look so decourous in a proper line! They depict order and mannerism. A single duck getting out of line can create chaos and a mess. Though not as precisely as in this picture, ducks in nature do follow order and avoid chaos. Aside from the poopy mess they create, if you ever had them as pets, we want our cpu scheduler to be just like that; avoiding chaos and mess.&lt;/p&gt;
+
+&lt;p&gt;Without diving into the philosophical definitions of order and chaos, as tempting as it may be, we’ll explore the basic foundations of scheduling mechanisms operating systems use. I realized it won’t be as much fun to read a pompous writing, so I am thrilled to tell you that there will be some action as well. We’ll write our cpu scheduler in C language as we go along the exploratory path. If you’ve personal grudges against the C language, fear not, we’ll try for a smooth sailing!&lt;/p&gt;
+
+&lt;p&gt;You want your computer to run multiple programs (we’ll call them processes) and not just run them, but switch between them without any delays. You would not want to see your computer lagging when opening your favorite browser along with a text editor. This demands some mechanism which schedules these processes properly. Such a mechanism is called CPU scheduling. The term CPU scheduling does not imply that the scheduling is done solely by CPU. Operating systems have a big role to play in scheduling processes on a CPU.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Nowhere in this article or its sequels, do we think about multi-processing. As a wise person said, complexity breeds obscurity.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;first-come-first-serve&quot;&gt;First come, first serve&lt;/h2&gt;
+
+&lt;p&gt;The simplest of these policies is using a queue (First In First Out). Think of the checkout line in a grocery store. Three people (&lt;strong&gt;A&lt;/strong&gt;lice, &lt;strong&gt;B&lt;/strong&gt;ob and &lt;strong&gt;C&lt;/strong&gt;lara) are standing in the queue. &lt;strong&gt;A&lt;/strong&gt;lice is on the front taking 100 seconds to checkout all her items. While the other two persons (&lt;strong&gt;B&lt;/strong&gt;ob &amp;amp; &lt;strong&gt;C&lt;/strong&gt;lara) will just take 10 seconds each, they still need to wait until &lt;strong&gt;A&lt;/strong&gt;lice is finished. Our first policy implementation is going to be FIFO. A good rule of thumb is to start simple and gradually increase the complexity!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/fifo_sched.PNG&quot; alt=&quot;fifo scheduling&quot; /&gt;
+&lt;em style=&quot;display:block;text-align:center;&quot;&gt;FIFO Policy. Credits: OS: Three Easy Pieces&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;serve-those-who-take-less-time&quot;&gt;Serve those who take less time&lt;/h2&gt;
+
+&lt;p&gt;Assuming all three came at the same time, can we let &lt;strong&gt;B&lt;/strong&gt;ob and &lt;strong&gt;C&lt;/strong&gt;lara go ahead first and finish their checkout? I know, it seems unfair, but let’s switch the context to computers. You’d want a task taking less time to complete first, no? That’s what this type of scheduling policy is going to achieve. Known as Shortest Job First (SJF), this policy works on the assumption that a shorter job has a higher priority and thus be executed first. What seems unfair in the grocery line is actually fair in case of computers, for your benefit!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/sjf_sched.PNG&quot; alt=&quot;sjf scheduling&quot; /&gt;
+&lt;em style=&quot;display:block;text-align:center;&quot;&gt;SJF Policy. Credits: OS: Three Easy Pieces&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;serve-those-who-take-less-time-even-if-they-come-late&quot;&gt;Serve those who take less time, even if they come late&lt;/h2&gt;
+
+&lt;p&gt;Sorry to give you a bummer, but the SJF policy is dumb. It assumes that all people (read jobs/processes/tasks) come at the same time. That’s not how a real world works. People come at random times in the grocery line after they’re finished shopping. Let’s be unfair again to people who came early but will take a lot of time. Let’s be real, the world is not fair, and neither can our imaginary world be. Ummm actually, we’re going to be a little more harsh. If a job &lt;strong&gt;A&lt;/strong&gt; is running and jobs &lt;strong&gt;B&lt;/strong&gt; and &lt;strong&gt;C&lt;/strong&gt; come in at 10th second, the schedular will recognize that &lt;strong&gt;A&lt;/strong&gt;lice is still going to take more time (80 more seconds) than &lt;strong&gt;B&lt;/strong&gt;ob and &lt;strong&gt;C&lt;/strong&gt;lara, and following conversation will happen:&lt;/p&gt;
+
+&lt;p&gt;Schedular: &lt;em&gt;Hi &lt;strong&gt;A&lt;/strong&gt;lice, sorry to interrupt you in the middle but seems like you are going to take too long to finish, so how about you get back at the end of the queue and let &lt;strong&gt;B&lt;/strong&gt;ob and &lt;strong&gt;C&lt;/strong&gt;lara finish first.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;A&lt;/strong&gt;lice: &lt;em&gt;No I won’t!&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Schedular: &lt;em&gt;I wasn’t asking&lt;/em&gt; 😈&lt;/p&gt;
+
+&lt;p&gt;This type of scheduling policy is called Shortest Time to Completion First (STCF) and also called a preemptive version of SJF. That is, a longer job preemptively stops to make time for incoming shorter jobs. As always, an illustration is a thousand times better:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/stcf_sched.PNG&quot; alt=&quot;stcf scheduling&quot; /&gt;
+&lt;em style=&quot;display:block;text-align:center;&quot;&gt;STCF Policy. Credits: OS: Three Easy Pieces&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;serve-everyone-equally&quot;&gt;Serve everyone equally!&lt;/h2&gt;
+
+&lt;p&gt;We started with a simple FIFO, which was biased towards longer running jobs. Next we explored SJF, which solved the previous problem, but which naively assumed that all jobs were coming at the same time. To tackle that, we came up with STCF, which gave shorter jobs more privilige, even when they came late. Hmmm wait! Do you smell the problem? Do you feel like the processes are not given an equal chance? &lt;em&gt;If you smelled a different problem, you’re probably ahead of this article :)&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Well, that’s what those programmers thought who came up with the Round Robin scheduling policy. Why not give every job an equal time before they preemptively stop to let the next job run for the same amount of time? This is called time-sharing or time-slice-sharing and Round Robin is based on this concept. See the figure below, every job is given a time slice of 1 second (it can be any constant). Once the job has used up its time slice and there are other jobs waiting in queue, it stops and goes to the end of the queue. Our scheduler must have secured a heaven for such a Robin Hood act!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/rr_sched.PNG&quot; alt=&quot;rr scheduling&quot; /&gt;
+&lt;em style=&quot;display:block;text-align:center;&quot;&gt;RR Policy. Credits: OS: Three Easy Pieces&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;wrapping-up--moving-on-to-implementation&quot;&gt;Wrapping up &amp;amp; Moving on to Implementation&lt;/h2&gt;
+
+&lt;p&gt;Is RR the best policy? Of course not, there are problems with RR algorithm (&lt;em&gt;policy == algorithm&lt;/em&gt;) which are addressed by more complex algorithms such as Multi Level Feedback Queue, Lottery Scheduling, Completely Fair Scheduling (it’s not completely fair to be honest), Brain F**k Scheduler (yes it exists) and others which are out of the scope of this post. But what’s good about what we’ve covered so far is that these are fundamentals, and they’re the origin of smart scheduling algorithms that operating systems use today. That’s why we’re going to stick to these four algorithms (or policies) in our implementation. See you in the &lt;a href=&quot;../simulating-cpu-scheduler-pt-2&quot;&gt;next article&lt;/a&gt; series where we do some action!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/images/fairness_dilemma.PNG&quot; alt=&quot;fairness dilemma&quot; /&gt;
+&lt;em style=&quot;display:block;text-align:center;&quot;&gt;The Fairness Dilemma. Created using &lt;a href=&quot;http://cmx.io&quot; target=&quot;_blank&quot;&gt;cmx.io&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;</content><author><name></name></author><category term="blog" /><summary type="html"></summary></entry><entry><title type="html">Creating a React-like library from scratch</title><link href="https://farooqar.github.io/creating-react-clone/" rel="alternate" type="text/html" title="Creating a React-like library from scratch" /><published>2020-07-27T00:00:00+05:00</published><updated>2020-07-27T00:00:00+05:00</updated><id>https://farooqar.github.io/creating-react-clone</id><content type="html" xml:base="https://farooqar.github.io/creating-react-clone/">&lt;p&gt;I have been developing React apps for quite a while and not a day passes by when I wonder
 how the React library was made. Today, I will turn this curiosity into an adventure.&lt;/p&gt;
 
 &lt;p&gt;The main goal of React is to create user interfaces, and that’s what we will try to achieve. We won’t be doing all the fancy stuff that React does, and for a good reason. We will stick
@@ -340,4 +739,4 @@ details into a separate function called &lt;code class=&quot;highlighter-rouge&q
 
 &lt;p&gt;It works! You can now add and remove todo items! We’ve come a long way but there’s still a lot to do. We’ll do the remaining work in part 2 of this article.&lt;/p&gt;
 
-&lt;p&gt;I hope you liked it. If you did and would like to see Part 2 as well, follow me on &lt;a href=&quot;https://twitter.com/farooq_ar&quot; target=&quot;_blank&quot;&gt;Twitter&lt;/a&gt; where I tweet about my upcoming posts as well as other good stuff!&lt;/p&gt;</content><author><name></name></author><category term="blog" /><summary type="html">I have been developing React apps for quite a while and not a day passes by when I wonder how the React library was made. Today, I will turn this curiosity into an adventure.</summary></entry><entry><title type="html">How does JS engine understand regular expressions</title><link href="http://localhost:4000/how-js-understand-regex/" rel="alternate" type="text/html" title="How does JS engine understand regular expressions" /><published>2020-07-18T00:00:00+05:00</published><updated>2020-07-18T00:00:00+05:00</updated><id>http://localhost:4000/how-js-understand-regex</id><content type="html" xml:base="http://localhost:4000/how-js-understand-regex/">&lt;p&gt;You can find this article on &lt;a href=&quot;https://medium.com/@farooq_ar/how-does-your-javascript-engine-understand-regular-expressions-2061f74adcdd&quot; target=&quot;_blank&quot;&gt;Medium&lt;/a&gt; where I originally wrote it.&lt;/p&gt;</content><author><name></name></author><category term="blog" /><summary type="html">You can find this article on Medium where I originally wrote it.</summary></entry></feed>
+&lt;p&gt;I hope you liked it. If you did and would like to see Part 2 as well, follow me on &lt;a href=&quot;https://twitter.com/farooq_ar&quot; target=&quot;_blank&quot;&gt;Twitter&lt;/a&gt; where I tweet about my upcoming posts as well as other good stuff!&lt;/p&gt;</content><author><name></name></author><category term="blog" /><summary type="html">I have been developing React apps for quite a while and not a day passes by when I wonder how the React library was made. Today, I will turn this curiosity into an adventure.</summary></entry><entry><title type="html">How does JS engine understand regular expressions</title><link href="https://farooqar.github.io/how-js-understand-regex/" rel="alternate" type="text/html" title="How does JS engine understand regular expressions" /><published>2020-07-18T00:00:00+05:00</published><updated>2020-07-18T00:00:00+05:00</updated><id>https://farooqar.github.io/how-js-understand-regex</id><content type="html" xml:base="https://farooqar.github.io/how-js-understand-regex/">&lt;p&gt;You can find this article on &lt;a href=&quot;https://medium.com/@farooq_ar/how-does-your-javascript-engine-understand-regular-expressions-2061f74adcdd&quot; target=&quot;_blank&quot;&gt;Medium&lt;/a&gt; where I originally wrote it.&lt;/p&gt;</content><author><name></name></author><category term="blog" /><summary type="html">You can find this article on Medium where I originally wrote it.</summary></entry></feed>
